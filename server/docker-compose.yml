@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  rest:
+    build: rest/
+    restart: always
+    env_file: .env
+
+  app:
+    build: app/
+    restart: always
+    ports:
+      - 89:80
