@@ -1,0 +1,8 @@
+<div class="body">
+    <mat-slide-toggle [(ngModel)]="manual" (input)="setManual()">Manual</mat-slide-toggle><br>
+    <mat-slide-toggle [(ngModel)]="status" (input)="setStatus()">Status</mat-slide-toggle><br>
+    <mat-slide-toggle [(ngModel)]="shutdown" (input)="setShutdown()">Shutdown</mat-slide-toggle><br>
+    <p>
+        Profit: {{ profit }}$ pro Kilowattstunde
+    </p>
+</div>
