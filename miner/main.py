@@ -5,12 +5,12 @@ from subprocess import Popen
 import os
 
 refreshInterval = 30
-apiUrl = 'http://localhost:2984/'
-minerName = 'test1'
+apiUrl = 'http://10.16.1.11:83/api/'
+minerName = 'deborpw16dt3-test'
 
 def miningStatus():
     try:
-        return return requests.get(apiUrl + 'mining/status').content.decode() == 'true'
+        return requests.get(apiUrl + 'mining/status').content.decode() == 'true'
     except:
         return False
 

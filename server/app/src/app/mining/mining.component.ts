@@ -54,7 +54,7 @@ export class MiningComponent implements OnInit {
   }
 
   setShutdown() {
-    this.miningService.postStatus(!this.shutdown).subscribe((data) => {
+    this.miningService.postShutdown(!this.shutdown).subscribe((data) => {
       this.shutdown = data;
     });
   }
