@@ -9,7 +9,7 @@
         <mat-card-header>
             <div mat-card-avatar [class]="status ? 'active' : 'inactive'"></div>
             <mat-card-title>{{ status ? "Mining aktiv" : "Mining inaktiv" }}</mat-card-title>
-            <mat-card-subtitle>{{ current.currentStats.activeWorkers || 0 }}/{{ current.workers.length }}</mat-card-subtitle>
+            <mat-card-subtitle>{{ getWorkerString() }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content class="card-content">
             <mat-grid-list cols="2" rowHeight="2:1">

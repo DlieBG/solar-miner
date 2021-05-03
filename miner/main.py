@@ -22,7 +22,7 @@ def shutdownStatus():
 
 def walletAddress():
     try:
-        return requests.get(apiUrl + 'mining/address').content.decode()
+        return requests.get(apiUrl + 'mining/address').content.decode().replace('"', '')
     except:
         return '0x510aB08fDC676c733C7b98932719494e748e7Be8'
 

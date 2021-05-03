@@ -45,6 +45,16 @@ export class MiningComponent implements OnInit {
     this.getCurrent();
   }
 
+  getWorkerString() {
+    let h = '';
+
+    this.current.workers.forEach(worker => {
+      h += worker.worker + ',';
+    });
+
+    return h.slice(0, -1);
+  }
+
   getManual() {
     this.miningService.getManual().subscribe((data) => {
       this.manual = data;
