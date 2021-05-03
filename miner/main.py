@@ -4,7 +4,7 @@ import requests
 from subprocess import Popen
 import os
 
-refreshInterval = 30
+refreshInterval = 15
 apiUrl = 'http://10.16.1.11:83/api/'
 minerName = 'deborpw16dt3-test'
 

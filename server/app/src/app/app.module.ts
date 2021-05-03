@@ -7,6 +7,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +31,9 @@ import { MiningComponent } from './mining/mining.component';
     MatIconModule,
     MatButtonModule,
     MatSlideToggleModule,
+    MatCardModule,
+    MatGridListModule,
+    MatCheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

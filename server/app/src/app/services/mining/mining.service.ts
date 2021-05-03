@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Current, Profit } from 'src/app/mining/mining.interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -34,7 +36,15 @@ export class MiningService {
     return this.httpClient.post<boolean>(`${environment.apiServer}mining/shutdown`, { shutdown: shutdown });
   }
 
-  public getProfit(): Observable<number> {
-    return this.httpClient.get<number>(`${environment.apiServer}mining/profit`);
+  public getAddress(): Observable<string> {
+    return this.httpClient.get<string>(`${environment.apiServer}mining/address`);
+  }
+
+  public getProfit(): Observable<Profit> {
+    return this.httpClient.get<Profit>(`${environment.apiServer}mining/profit`);
+  }
+
+  public getCurrent(): Observable<Current> {
+    return this.httpClient.get<Current>(`${environment.apiServer}mining/current`);
   }
 }
