@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CronJob } from 'cron';
 import { MiningService } from '../services/mining/mining.service';
+import { Current, Profit } from './mining.interface';
 
 @Component({
   selector: 'app-mining',
@@ -11,16 +13,46 @@ export class MiningComponent implements OnInit {
   manual: boolean;
   status: boolean;
   shutdown: boolean;
+  address: string;
 
-  profit: number;
+  profit: Profit;
+
+  current: Current;
+
+  job: CronJob;
 
   constructor(private miningService: MiningService) { }
 
   ngOnInit(): void {
+    this.job = new CronJob('*/10 * * * * *', () => {
+      this.refresh();
+    });
+    this.job.start();
+
+    this.refresh();
+  }
+
+  ngOnDestroy(): void {
+    this.job.stop();
+  }
+
+  refresh() {
     this.getManual();
     this.getStatus();
     this.getShutdown();
+    this.getAddress();
     this.getProfit();
+    this.getCurrent();
+  }
+
+  getWorkerString() {
+    let h = '';
+
+    this.current.workers.forEach(worker => {
+      h += worker.worker + ',';
+    });
+
+    return h.slice(0, -1);
   }
 
   getManual() {
@@ -30,7 +62,7 @@ export class MiningComponent implements OnInit {
   }
 
   setManual() {
-    this.miningService.postManual(!this.manual).subscribe((data) => {
+    this.miningService.postManual(this.manual).subscribe((data) => {
       this.manual = data;
     });
   }
@@ -59,9 +91,21 @@ export class MiningComponent implements OnInit {
     });
   }
 
+  getAddress() {
+    this.miningService.getAddress().subscribe((data) => {
+      this.address = data;
+    });
+  }
+
   getProfit() {
     this.miningService.getProfit().subscribe((data) => {
       this.profit = data;
+    });
+  }
+
+  getCurrent() {
+    this.miningService.getCurrent().subscribe((data) => {
+      this.current = data;
     });
   }
 

@@ -1,8 +1,54 @@
-<div class="body">
-    <mat-slide-toggle [(ngModel)]="manual" (input)="setManual()">Manual</mat-slide-toggle><br>
-    <mat-slide-toggle [(ngModel)]="status" (input)="setStatus()">Status</mat-slide-toggle><br>
-    <mat-slide-toggle [(ngModel)]="shutdown" (input)="setShutdown()">Shutdown</mat-slide-toggle><br>
-    <p>
-        Profit: {{ profit }}$ pro Kilowattstunde
-    </p>
+<div class="refresh">
+    <a mat-icon-button target="_blank" [href]="'https://www.ethermine.org/miners/' + address + '/dashboard'"><mat-icon>launch</mat-icon></a>
+    <button mat-icon-button (click)="refresh()"><mat-icon>refresh</mat-icon></button>
+</div>
+
+<div class="body" *ngIf="current && profit">
+
+    <mat-card class="card">
+        <mat-card-header>
+            <div mat-card-avatar [class]="status ? 'active' : 'inactive'"></div>
+            <mat-card-title>{{ status ? "Mining aktiv" : "Mining inaktiv" }}</mat-card-title>
+            <mat-card-subtitle>{{ getWorkerString() }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="card-content">
+            <mat-grid-list cols="2" rowHeight="2:1">
+                <mat-grid-tile>
+                    <h2>~ {{ profit.perkWh | number: '1.1-2' }}€ kWh⁻¹</h2>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <h2>~ {{ profit.perDay | number: '1.1-2' }}€ d⁻¹</h2>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <table>
+                        <tr>
+                            <h2>{{ current.currentStats.currentHashrate / 1000000 | number: '1.1-2' }} MH/s</h2>
+                        </tr>
+                        <tr>
+                            <i>Aktuelle Hashrate</i>
+                        </tr>
+                    </table>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <table>
+                        <tr>
+                            <h2>{{ current.currentStats.averageHashrate / 1000000 | number: '1.1-2' }} MH/s</h2>
+                        </tr>
+                        <tr>
+                            <i>Durchschnittliche Hashrate</i>
+                        </tr>
+                    </table>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-card-content>
+        <hr>
+        <mat-card-actions class="switchs">
+            <mat-checkbox [(ngModel)]="manual" color="primary" (input)="setManual()">Manueller Modus</mat-checkbox><br>
+            <div *ngIf="manual">
+                <mat-slide-toggle [(ngModel)]="status" (input)="setStatus()">Mining-Status</mat-slide-toggle><br>
+                <mat-slide-toggle [(ngModel)]="shutdown" (input)="setShutdown()">Shutdown</mat-slide-toggle><br>
+            </div>
+        </mat-card-actions>
+      </mat-card>
+      
 </div>

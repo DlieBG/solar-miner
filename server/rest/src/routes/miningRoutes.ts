@@ -20,5 +20,6 @@ export class MiningRoutes {
         this.router.get("/manual", this.miningController.getManual);
         this.router.post("/manual", this.miningController.postManual);
         this.router.get("/profit", this.miningController.getProfit);
+        this.router.get("/current", this.miningController.getCurrent);
     }
 }

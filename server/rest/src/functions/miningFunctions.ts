@@ -9,8 +9,9 @@ export class MiningFunctions {
     shutdown: boolean = false;
     manual: boolean = false;
 
-    dashboard: any;
+    workers: any;
     currentStats: any;
+    currentExchange: any;
 
     constructor() {
         new CronJob('0 */5 * * * *', () => {
@@ -21,17 +22,23 @@ export class MiningFunctions {
     }
 
     async updateMiner() {
-        this.dashboard = await axios.get(`https://api.ethermine.org/miner/${config.eth_address}/dashboard`)
+        this.workers = await axios.get(`https://api.ethermine.org/miner/${config.eth_address}/dashboard`)
         .then(async (res) => {
             delete(res.data.data.statistics)
             delete(res.data.data.settings)
+            delete(res.data.data.currentStatistics)
 
-            return res.data.data;
+            return res.data.data.workers;
         });
 
         this.currentStats = await axios.get(`https://api.ethermine.org/miner/${config.eth_address}/currentStats`)
         .then(async (res) => {
             return res.data.data;
+        });
+
+        this.currentExchange = await axios.get(`https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR`)
+        .then(async (res) => {
+            return res.data;
         });
 
         const client = await db_pool.getConnection().connect();
@@ -40,15 +47,25 @@ export class MiningFunctions {
 
         await col.insertOne(
             {
-                dashboard: this.dashboard,
-                currentStats: this.currentStats
+                workers: this.workers,
+                currentStats: this.currentStats,
+                currentExchange: this.currentExchange,
+                miningStatus: this.status,
+                profit: {
+                    perkWh: this.calculatekWh(),
+                    perDay: this.calculateDay()
+                }
             }
         );
 
         client.close();
     }
 
-    calculateProfit() {
-        return (1000 / 200) * this.currentStats.usdPerMin * 60;
+    calculatekWh() {
+        return Math.round((1000 / 200) * this.currentStats.coinsPerMin * this.currentExchange.EUR * 60 * 100) / 100;
+    }
+
+    calculateDay() {
+        return Math.round(24 * 60 * this.currentStats.coinsPerMin * this.currentExchange.EUR * 100) / 100;
     }
 }

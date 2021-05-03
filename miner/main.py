@@ -7,7 +7,7 @@ import dotenv
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 dotenv.load_dotenv(dotenv_path)
 
-refreshInterval = int(os.getenv("REFRESH_INTERVALL", "30"))
+refreshInterval = int(os.getenv("REFRESH_INTERVALL", "15"))
 apiUrl = os.getenv("API_URL")
 apiUrl = apiUrl if apiUrl.endswith("/") else apiUrl + "/"
 minerName = os.getenv("MINER_NAME")

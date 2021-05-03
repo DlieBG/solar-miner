@@ -17,7 +17,7 @@ export class MiningController {
     // }
 
     public async getAddress(req: Request, res: Response): Promise<void> {
-        res.send(config.eth_address);
+        res.json(config.eth_address);
     }
 
     public async getStatus(req: Request, res: Response): Promise<void> {
@@ -36,6 +36,10 @@ export class MiningController {
     public async postShutdown(req: Request, res: Response): Promise<void> {
         mining.shutdown = req.body.shutdown;
         res.send(mining.shutdown);
+
+        setTimeout(() => {
+            mining.shutdown = false;
+        }, 60000);
     }
 
     public async getManual(req: Request, res: Response): Promise<void> {
@@ -48,6 +52,17 @@ export class MiningController {
     }
 
     public async getProfit(req: Request, res: Response): Promise<void> {
-        res.send(mining.calculateProfit().toString());
+        res.send({
+            perkWh: mining.calculatekWh().toString(),
+            perDay: mining.calculateDay().toString()
+        });
+    }
+
+    public async getCurrent(req: Request, res: Response): Promise<void> {
+        res.json({
+            workers: mining.workers,
+            currentStats: mining.currentStats,
+            currentExchange: mining.currentExchange
+        });
     }
 }
