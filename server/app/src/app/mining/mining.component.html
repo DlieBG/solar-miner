@@ -22,7 +22,7 @@
                 <mat-grid-tile>
                     <table>
                         <tr>
-                            <h2>{{ current.currentStats.currentHashrate / 10000000 | number: '1.1-2' }} MH/s</h2>
+                            <h2>{{ current.currentStats.currentHashrate / 1000000 | number: '1.1-2' }} MH/s</h2>
                         </tr>
                         <tr>
                             <i>Aktuelle Hashrate</i>
@@ -32,7 +32,7 @@
                 <mat-grid-tile>
                     <table>
                         <tr>
-                            <h2>{{ current.currentStats.averageHashrate / 10000000 | number: '1.1-2' }} MH/s</h2>
+                            <h2>{{ current.currentStats.averageHashrate / 1000000 | number: '1.1-2' }} MH/s</h2>
                         </tr>
                         <tr>
                             <i>Durchschnittliche Hashrate</i>
