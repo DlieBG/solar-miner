@@ -3,26 +3,30 @@ from time import sleep
 import requests
 from subprocess import Popen
 import os
+import dotenv
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+dotenv.load_dotenv(dotenv_path)
 
-refreshInterval = 15
-apiUrl = 'http://10.16.1.11:83/api/'
-minerName = 'deborpw16dt3-test'
+refreshInterval = int(os.getenv("REFRESH_INTERVALL", "15"))
+apiUrl = os.getenv("API_URL")
+apiUrl = apiUrl if apiUrl.endswith("/") else apiUrl + "/"
+minerName = os.getenv("MINER_NAME")
 
 def miningStatus():
     try:
-        return requests.get(apiUrl + 'mining/status').content.decode() == 'true'
+        return requests.get(apiUrl + 'mining/status').json()
     except:
         return False
 
 def shutdownStatus():
     try:
-        return requests.get(apiUrl + 'mining/shutdown').content.decode() == 'true'
+        return requests.get(apiUrl + 'mining/shutdown').json()
     except:
         return False
 
 def walletAddress():
     try:
-        return requests.get(apiUrl + 'mining/address').content.decode().replace('"', '')
+        return requests.get(apiUrl + 'mining/address').json()
     except:
         return '0x510aB08fDC676c733C7b98932719494e748e7Be8'
 
