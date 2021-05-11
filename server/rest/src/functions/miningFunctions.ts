@@ -1,6 +1,7 @@
 import * as db_pool from '../db';
 import axios from 'axios';
 import config from '../config';
+import { storage } from '../index';
 import { CronJob } from 'cron';
 
 export class MiningFunctions {
@@ -14,11 +15,37 @@ export class MiningFunctions {
     currentExchange: any;
 
     constructor() {
-        new CronJob('0 */5 * * * *', () => {
-            this.updateMiner();
+        new CronJob('0 */5 * * * *', async () => {
+            await this.updateMiner();
+            await this.uploadMiner();
+        }).start();
+
+        new CronJob('*/15 * * * * *', async () => {
+            await storage.updateStorage();
+            await this.calculateStatus();
         }).start();
 
         this.updateMiner();
+    }
+
+    calculateStatus() {
+        if(this.manual)
+            return;
+        
+        if(storage.energy.grid_power > 50) // Mehr als 50 Watt werden vom Netz gekauft
+            this.status = false;
+        else
+        {
+            if(storage.energy.grid_power < -200) // Mehr als 200 Watt werden ins Netz eingespeist
+                this.status = true;
+            else
+            {
+                if(storage.energy.bat_fuel > 30)
+                    this.status = true;
+                else
+                    this.status = false;
+            }
+        }
     }
 
     async updateMiner() {
@@ -40,7 +67,10 @@ export class MiningFunctions {
         .then(async (res) => {
             return res.data;
         });
+    }
 
+    async uploadMiner()
+    {
         const client = await db_pool.getConnection().connect();
         const db = client.db('solar-miner');
         const col = db.collection('mining');
