@@ -50,9 +50,9 @@ export class StorageComponent implements OnInit {
     if(this.energy.grid_power > 0)
       grid = 'Netzbetrieb';
     if(this.energy.grid_power < 0)
-      grid = 'Einspeisung';
+      grid = 'Einspeisen';
 
-    return `${bat} ${grid}`;
+    return `${bat} und ${grid}`;
   }
 
   getEnergy() {

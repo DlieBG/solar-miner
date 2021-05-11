@@ -2,12 +2,17 @@
     margin: 2em;
 }
 
-.active {
+.good {
     background-size: cover;
     background-color: rgba(0, 228, 0, 0.774);
 }
 
-.inactive {
+.semi {
+    background-size: cover;
+    background-color: rgba(255, 132, 0, 0.781);
+}
+
+.bad {
     background-size: cover;
     background-color: rgba(255, 30, 0, 0.781);
 }
@@ -28,8 +33,6 @@ i {
 }
 
 mat-icon {
-    zoom: .75;
-    vertical-align: text-bottom;
 }
 
 .switchs {

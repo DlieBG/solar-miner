@@ -2,7 +2,9 @@
 
     <mat-card class="card">
         <mat-card-header>
-            <div mat-card-avatar [class]="(energy.bat_power > 0 && energy.grid_power < 0) ? 'active' : 'inactive'"></div>
+            <div mat-card-avatar class="good" *ngIf="energy.bat_power > 0 && energy.grid_power < 0"></div>
+            <div mat-card-avatar class="semi" *ngIf="!(energy.bat_power < 0 && energy.grid_power > 0) && !(energy.bat_power > 0 && energy.grid_power < 0)"></div>
+            <div mat-card-avatar class="bad" *ngIf="energy.bat_power < 0 && energy.grid_power > 0"></div>
             <mat-card-title>{{ calculateStatus() }}</mat-card-title>
             <mat-card-subtitle>Senec Speicher</mat-card-subtitle>
         </mat-card-header>
@@ -34,7 +36,8 @@
                             <h2>{{ energy.bat_power | number: '1.1-1' }} W</h2>
                         </tr>
                         <tr>
-                            <i><mat-icon>{{ (energy.bat_power > 0) ? 'east' : 'west' }}</mat-icon> Batterie</i>
+                            <i *ngIf="energy.bat_power > 0"><mat-icon>east</mat-icon><mat-icon>battery_charging_full</mat-icon></i>
+                            <i *ngIf="energy.bat_power < 0"><mat-icon>west</mat-icon><mat-icon>battery_full</mat-icon></i>
                         </tr>
                     </table>
                 </mat-grid-tile>
@@ -44,7 +47,8 @@
                             <h2>{{ energy.grid_power | number: '1.1-1' }} W</h2>
                         </tr>
                         <tr>
-                            <i><mat-icon>{{ (energy.grid_power < 0) ? 'east' : 'west' }}</mat-icon> Netz</i>
+                            <i *ngIf="energy.grid_power < 0"><mat-icon>east</mat-icon><mat-icon>public</mat-icon></i>
+                            <i *ngIf="energy.grid_power > 0"><mat-icon>west</mat-icon><mat-icon>public</mat-icon></i>
                         </tr>
                     </table>
                 </mat-grid-tile>
