@@ -1,0 +1,75 @@
+<div class="body" *ngIf="energy && profit">
+
+    <mat-card class="card">
+        <mat-card-header>
+            <div mat-card-avatar [class]="(energy.bat_power > 0 && energy.grid_power < 0) ? 'active' : 'inactive'"></div>
+            <mat-card-title>{{ calculateStatus() }}</mat-card-title>
+            <mat-card-subtitle>Senec Speicher</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="card-content">
+            <mat-grid-list cols="2" rowHeight="2:1">
+                <mat-grid-tile>
+                    <table>
+                        <tr>
+                            <h2>{{ energy.house_power | number: '1.1-1' }} W</h2>
+                        </tr>
+                        <tr>
+                            <i>Hausverbrauch</i>
+                        </tr>
+                    </table>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <table>
+                        <tr>
+                            <h2>{{ energy.solar_power | number: '1.1-1' }} W</h2>
+                        </tr>
+                        <tr>
+                            <i>Erzeugung</i>
+                        </tr>
+                    </table>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <table>
+                        <tr>
+                            <h2>{{ energy.bat_power | number: '1.1-1' }} W</h2>
+                        </tr>
+                        <tr>
+                            <i><mat-icon>{{ (energy.bat_power > 0) ? 'east' : 'west' }}</mat-icon> Batterie</i>
+                        </tr>
+                    </table>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <table>
+                        <tr>
+                            <h2>{{ energy.grid_power | number: '1.1-1' }} W</h2>
+                        </tr>
+                        <tr>
+                            <i><mat-icon>{{ (energy.grid_power < 0) ? 'east' : 'west' }}</mat-icon> Netz</i>
+                        </tr>
+                    </table>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <table>
+                        <tr>
+                            <h2>{{ energy.bat_fuel | number: '1.1-1' }}%</h2>
+                        </tr>
+                        <tr>
+                            <i>Ladung</i>
+                        </tr>
+                    </table>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <table>
+                        <tr>
+                            <h2>~ {{ profit.perkWh | number: '1.1-2' }}€ kWh⁻¹</h2>
+                        </tr>
+                        <tr>
+                            <i>Profit</i>
+                        </tr>
+                    </table>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-card-content>
+      </mat-card>
+      
+</div>

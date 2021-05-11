@@ -20,7 +20,7 @@ export class MiningFunctions {
             await this.uploadMiner();
         }).start();
 
-        new CronJob('*/15 * * * * *', async () => {
+        new CronJob('*/10 * * * * *', async () => {
             await storage.updateStorage();
             await this.calculateStatus();
         }).start();

@@ -27,6 +27,11 @@ i {
     color: #000000be;
 }
 
+mat-icon {
+    zoom: .75;
+    vertical-align: text-bottom;
+}
+
 .switchs {
     margin-left: 1em;
 }
@@ -39,7 +44,7 @@ mat-slide-toggle, mat-checkbox {
 @media (min-width: 1281px) {
 
     .body {
-        float: right;
+        float: left;
     }
   
     .card  {
@@ -68,7 +73,7 @@ mat-slide-toggle, mat-checkbox {
 @media (min-width: 1025px) and (max-width: 1280px) {
 
     .body {
-        float: right;
+        float: left;
     }
   
     .card  {

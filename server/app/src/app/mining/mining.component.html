@@ -1,8 +1,3 @@
-<div class="refresh">
-    <a mat-icon-button target="_blank" [href]="'https://www.ethermine.org/miners/' + address + '/dashboard'"><mat-icon>launch</mat-icon></a>
-    <button mat-icon-button (click)="refresh()"><mat-icon>refresh</mat-icon></button>
-</div>
-
 <div class="body" *ngIf="current && profit">
 
     <mat-card class="card">
@@ -14,10 +9,25 @@
         <mat-card-content class="card-content">
             <mat-grid-list cols="2" rowHeight="2:1">
                 <mat-grid-tile>
-                    <h2>~ {{ profit.perkWh | number: '1.1-2' }}€ kWh⁻¹</h2>
+                    <table>
+                        <tr>
+                            <h2>{{ current.currentExchange.EUR | number: '1.1-2' }}€ ETH⁻¹</h2>
+                            <!-- <h2>~ {{ profit.perkWh | number: '1.1-2' }}€ kWh⁻¹</h2> -->
+                        </tr>
+                        <tr>
+                            <i>Rate</i>
+                        </tr>
+                    </table>
                 </mat-grid-tile>
                 <mat-grid-tile>
-                    <h2>~ {{ profit.perDay | number: '1.1-2' }}€ d⁻¹</h2>
+                    <table>
+                        <tr>
+                            <h2>~ {{ profit.perDay | number: '1.1-2' }}€ d⁻¹</h2>
+                        </tr>
+                        <tr>
+                            <i>Profit</i>
+                        </tr>
+                    </table>
                 </mat-grid-tile>
                 <mat-grid-tile>
                     <table>
@@ -25,7 +35,7 @@
                             <h2>{{ current.currentStats.currentHashrate / 1000000 | number: '1.1-2' }} MH/s</h2>
                         </tr>
                         <tr>
-                            <i>Aktuelle Hashrate</i>
+                            <i>aktuell</i>
                         </tr>
                     </table>
                 </mat-grid-tile>
@@ -35,7 +45,7 @@
                             <h2>{{ current.currentStats.averageHashrate / 1000000 | number: '1.1-2' }} MH/s</h2>
                         </tr>
                         <tr>
-                            <i>Durchschnittliche Hashrate</i>
+                            <i>durchschnittlich</i>
                         </tr>
                     </table>
                 </mat-grid-tile>
