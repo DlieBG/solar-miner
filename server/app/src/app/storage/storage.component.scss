@@ -4,17 +4,17 @@
 
 .good {
     background-size: cover;
-    background-color: rgba(0, 228, 0, 0.774);
+    background-color: rgba(0, 212, 0, 0.800);
 }
 
 .semi {
     background-size: cover;
-    background-color: rgba(255, 132, 0, 0.781);
+    background-color: rgba(255, 180, 0, 0.781);
 }
 
 .bad {
     background-size: cover;
-    background-color: rgba(255, 30, 0, 0.781);
+    background-color: rgba(255, 30, 0, 0.800);
 }
 
 h2 {
@@ -32,11 +32,16 @@ i {
     color: #000000be;
 }
 
-mat-icon {
+.good_val {
+    color: rgba(0, 212, 0, 0.800);
 }
 
-.switchs {
-    margin-left: 1em;
+.bad_val {
+    color: rgba(255, 30, 0, 0.800);
+}
+
+.progress {
+    width: 100%;
 }
 
 mat-slide-toggle, mat-checkbox {

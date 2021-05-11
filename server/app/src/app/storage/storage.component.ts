@@ -45,14 +45,14 @@ export class StorageComponent implements OnInit {
     if(this.energy.bat_power < 0)
       bat = 'Entladen';
     if(this.energy.bat_power > 0)
-      bat = 'Aufladen';
+      bat = 'Laden';
 
     if(this.energy.grid_power > 0)
       grid = 'Netzbetrieb';
     if(this.energy.grid_power < 0)
-      grid = 'Einspeisen';
+      grid = 'einspeisen';
 
-    return `${bat} und ${grid}`;
+    return `${bat} + ${grid}`;
   }
 
   getEnergy() {

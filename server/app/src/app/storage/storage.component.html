@@ -16,7 +16,7 @@
                             <h2>{{ energy.house_power | number: '1.1-1' }} W</h2>
                         </tr>
                         <tr>
-                            <i>Hausverbrauch</i>
+                            <i>Verbrauch</i>
                         </tr>
                     </table>
                 </mat-grid-tile>
@@ -24,6 +24,11 @@
                     <table>
                         <tr>
                             <h2>{{ energy.solar_power | number: '1.1-1' }} W</h2>
+                            <mat-progress-bar
+                                class="progress"
+                                mode="determinate"
+                                [value]="energy.solar_power / 100">
+                            </mat-progress-bar>
                         </tr>
                         <tr>
                             <i>Erzeugung</i>
@@ -33,22 +38,27 @@
                 <mat-grid-tile>
                     <table>
                         <tr>
-                            <h2>{{ energy.bat_power | number: '1.1-1' }} W</h2>
+                            <h2>{{ (energy.bat_power < 0 ? -energy.bat_power : energy.bat_power) | number: '1.1-1' }} W</h2>
+                            <mat-progress-bar
+                                class="progress"
+                                mode="determinate"
+                                [value]="(energy.bat_power < 0 ? -energy.bat_power : energy.bat_power) / 20">
+                            </mat-progress-bar>
                         </tr>
                         <tr>
-                            <i *ngIf="energy.bat_power > 0"><mat-icon>east</mat-icon><mat-icon>battery_charging_full</mat-icon></i>
-                            <i *ngIf="energy.bat_power < 0"><mat-icon>west</mat-icon><mat-icon>battery_full</mat-icon></i>
+                            <i *ngIf="energy.bat_power > 0" class="good_val"><mat-icon>east</mat-icon><mat-icon>battery_charging_full</mat-icon></i>
+                            <i *ngIf="energy.bat_power < 0" class="bad_val"><mat-icon>west</mat-icon><mat-icon>battery_full</mat-icon></i>
                         </tr>
                     </table>
                 </mat-grid-tile>
                 <mat-grid-tile>
                     <table>
                         <tr>
-                            <h2>{{ energy.grid_power | number: '1.1-1' }} W</h2>
+                            <h2>{{ (energy.grid_power < 0 ? -energy.grid_power : energy.grid_power) | number: '1.1-1' }} W</h2>
                         </tr>
                         <tr>
-                            <i *ngIf="energy.grid_power < 0"><mat-icon>east</mat-icon><mat-icon>public</mat-icon></i>
-                            <i *ngIf="energy.grid_power > 0"><mat-icon>west</mat-icon><mat-icon>public</mat-icon></i>
+                            <i *ngIf="energy.grid_power < 0" class="good_val"><mat-icon>east</mat-icon><mat-icon>public</mat-icon></i>
+                            <i *ngIf="energy.grid_power > 0" class="bad_val"><mat-icon>west</mat-icon><mat-icon>public</mat-icon></i>
                         </tr>
                     </table>
                 </mat-grid-tile>
@@ -56,6 +66,11 @@
                     <table>
                         <tr>
                             <h2>{{ energy.bat_fuel | number: '1.1-1' }}%</h2>
+                            <mat-progress-bar
+                                class="progress"
+                                mode="determinate"
+                                [value]="energy.bat_fuel">
+                            </mat-progress-bar>
                         </tr>
                         <tr>
                             <i>Ladung</i>

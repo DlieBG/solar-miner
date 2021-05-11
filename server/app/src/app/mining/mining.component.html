@@ -5,6 +5,7 @@
             <div mat-card-avatar [class]="status ? 'active' : 'inactive'"></div>
             <mat-card-title>{{ status ? "Mining aktiv" : "Mining inaktiv" }}</mat-card-title>
             <mat-card-subtitle>{{ getWorkerString() }}</mat-card-subtitle>
+            <a mat-icon-button target="_blank" [href]="'https://www.ethermine.org/miners/' + address + '/dashboard'"><mat-icon>open_in_new</mat-icon></a>
         </mat-card-header>
         <mat-card-content class="card-content">
             <mat-grid-list cols="2" rowHeight="2:1">
@@ -12,7 +13,6 @@
                     <table>
                         <tr>
                             <h2>{{ current.currentExchange.EUR | number: '1.1-2' }}€ ETH⁻¹</h2>
-                            <!-- <h2>~ {{ profit.perkWh | number: '1.1-2' }}€ kWh⁻¹</h2> -->
                         </tr>
                         <tr>
                             <i>Rate</i>
