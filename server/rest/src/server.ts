@@ -4,6 +4,7 @@ import cors from 'cors';
 import config from './config';
 import * as db from './db';
 import { MiningRoutes } from './routes/miningRoutes';
+import { StorageRoutes } from './routes/storageRoutes';
 
 export class Server {
     public app: express.Application;
@@ -23,6 +24,7 @@ export class Server {
 
     public routes(): void {
         this.app.use("/mining", new MiningRoutes().router);
+        this.app.use("/storage", new StorageRoutes().router);
     }
 
     public start(): void {

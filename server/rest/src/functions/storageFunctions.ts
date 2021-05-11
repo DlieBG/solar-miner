@@ -52,7 +52,8 @@ export class StorageFunctions {
     decode(input: string) {
         if(input.startsWith('fl_'))
         {
-            return new Buffer(input.replace('fl_', ''), 'hex').readFloatBE();
+            let float = new Buffer(input.replace('fl_', ''), 'hex').readFloatBE();
+            return  Math.round(float * 1000) / 1000;
         }
     }
 }
