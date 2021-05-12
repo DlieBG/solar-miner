@@ -27,7 +27,7 @@
                             <mat-progress-bar
                                 class="progress"
                                 mode="determinate"
-                                [value]="energy.solar_power / 100">
+                                [value]="energy.solar_power / 75">
                             </mat-progress-bar>
                         </tr>
                         <tr>
@@ -42,7 +42,7 @@
                             <mat-progress-bar
                                 class="progress"
                                 mode="determinate"
-                                [value]="(energy.bat_power < 0 ? -energy.bat_power : energy.bat_power) / 20">
+                                [value]="(energy.bat_power < 0 ? -energy.bat_power : energy.bat_power) / 25">
                             </mat-progress-bar>
                         </tr>
                         <tr>
