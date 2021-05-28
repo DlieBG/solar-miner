@@ -32,7 +32,7 @@ def walletAddress():
 
 async def miner():
     try:
-        process = Popen(['./ethminer/ethminer', '-U', '-P', 'stratum1+tcp://' + walletAddress() + '.' + minerName + '@eu1.ethermine.org:4444'])
+        process = Popen(['./ethminer/ethminer', '--exit', '-U', '-P', 'stratum1+tcp://' + walletAddress() + '.' + minerName + '@eu1.ethermine.org:4444'])
 
         while miningStatus():
             sleep(refreshInterval)
