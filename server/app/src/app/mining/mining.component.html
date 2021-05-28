@@ -32,6 +32,26 @@
                 <mat-grid-tile>
                     <table>
                         <tr>
+                            <h2>~ {{ (current.currentStats.unpaid / 1000000000000000) / (current.currentStats.coinsPerMin * 60 * 24 * 1000) - 10 | number: '1.1-1' }} d</h2>
+                        </tr>
+                        <tr>
+                            <i>Auszahlung</i>
+                        </tr>
+                    </table>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <table>
+                        <tr>
+                            <h2>~ {{ (current.currentStats.unpaid / 1000000000000000000) * current.currentExchange.EUR | number: '1.1-2' }}€</h2>
+                        </tr>
+                        <tr>
+                            <i>unausgezahlt</i>
+                        </tr>
+                    </table>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <table>
+                        <tr>
                             <h2>{{ current.currentStats.currentHashrate / 1000000 | number: '1.1-2' }} MH/s</h2>
                         </tr>
                         <tr>
