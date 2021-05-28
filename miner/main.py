@@ -1,5 +1,5 @@
 import asyncio
-from time import sleep
+from time import sleep, time
 import requests
 from subprocess import Popen
 import os
@@ -7,7 +7,8 @@ import dotenv
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 dotenv.load_dotenv(dotenv_path)
 
-refreshInterval = int(os.getenv("REFRESH_INTERVALL", "15"))
+refreshInterval = int(os.getenv("REFRESH_INTERVALL", "10"))
+restartInterval = int(os.getenv("RESTART_INTERVALL", "40"))
 apiUrl = os.getenv("API_URL")
 apiUrl = apiUrl if apiUrl.endswith("/") else apiUrl + "/"
 minerName = os.getenv("MINER_NAME")
@@ -32,9 +33,11 @@ def walletAddress():
 
 async def miner():
     try:
-        process = Popen(['./ethminer/ethminer', '--exit', '-U', '-P', 'stratum1+tcp://' + walletAddress() + '.' + minerName + '@eu1.ethermine.org:4444'])
+        start = time()
 
-        while miningStatus():
+        process = Popen(['./ethminer/ethminer', '-R', '--exit', '-U', '-P', 'stratum1+tcp://' + walletAddress() + '.' + minerName + '@eu1.ethermine.org:4444'])
+        
+        while miningStatus() and time() - start < restartInterval * 60:
             sleep(refreshInterval)
 
         process.terminate()
