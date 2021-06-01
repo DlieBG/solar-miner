@@ -32,7 +32,7 @@ export class MiningFunctions {
         if(this.manual)
             return;
         
-        if(storage.energy.grid_power > 50) // Mehr als 50 Watt werden vom Netz gekauft
+        if(storage.energy.grid_power > 100) // Mehr als 50 Watt werden vom Netz gekauft
             this.status = false;
         else
         {
@@ -40,10 +40,16 @@ export class MiningFunctions {
                 this.status = true;
             else
             {
-                if(storage.energy.bat_fuel > 30)
+                if(storage.energy.bat_fuel > 30) // Akku leerer als 30%
                     this.status = true;
                 else
+                {
                     this.status = false;
+                    if(new Date().getHours() > 1 && new Date().getHours() < 4) // zwischen 1 und 4 Uhr Nachts
+                        this.shutdown = true;
+                    else
+                        this.shutdown = false;
+                }
             }
         }
     }
