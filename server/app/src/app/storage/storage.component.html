@@ -95,7 +95,7 @@
                             <h2 *ngIf="energy.bat_power > 0">{{ (10000 - (energy.bat_fuel * 100)) / energy.bat_power | number: '1.1-1' }} h</h2>
                             <h2 *ngIf="energy.bat_power < 0">
                                 {{ (energy.bat_fuel * 100) / -energy.bat_power | number: '1.1-1' }} h
-                                ({{ (energy.bat_fuel * 100) / -energy.house_power | number: '1.1-1' }} h)
+                                ({{ (energy.bat_fuel * 100) / energy.house_power | number: '1.1-1' }} h)
                             </h2>
                         </tr>
                         <tr>
