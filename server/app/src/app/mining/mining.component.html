@@ -32,7 +32,7 @@
                 <mat-grid-tile>
                     <table>
                         <tr>
-                            <h2>~ {{ profit.perDay | number: '1.1-2' }}€ d⁻¹</h2>
+                            <h2>{{ profit.perDay | number: '1.1-2' }}€ d⁻¹</h2>
                         </tr>
                         <tr>
                             <i>Profit</i>
@@ -42,7 +42,7 @@
                 <mat-grid-tile>
                     <table>
                         <tr>
-                            <h2>~ {{ profit.perkWh | number: '1.1-2' }}€ kWh⁻¹</h2>
+                            <h2>{{ profit.perkWh | number: '1.1-2' }}€ kWh⁻¹</h2>
                         </tr>
                         <tr>
                             <i>Profit</i>
@@ -52,7 +52,7 @@
                 <mat-grid-tile>
                     <table>
                         <tr>
-                            <h2 *ngIf="(current.currentStats.unpaid / 1000000000000000000) < 0.01">~ {{ (0.01 - (current.currentStats.unpaid / 1000000000000000000)) / (current.currentStats.coinsPerMin * 60 * 24) | number: '1.1-1' }} d</h2>
+                            <h2 *ngIf="(current.currentStats.unpaid / 1000000000000000000) < 0.01">{{ (0.01 - (current.currentStats.unpaid / 1000000000000000000)) / (current.currentStats.coinsPerMin * 60 * 24) | number: '1.1-1' }} d</h2>
                             <h2 *ngIf="(current.currentStats.unpaid / 1000000000000000000) >= 0.01">nächste 2. WE</h2>
                         </tr>
                         <tr>
@@ -63,7 +63,7 @@
                 <mat-grid-tile>
                     <table>
                         <tr>
-                            <h2>~ {{ (current.currentStats.unpaid / 1000000000000000000) * current.currentExchange.EUR | number: '1.1-2' }}€</h2>
+                            <h2>{{ (current.currentStats.unpaid / 1000000000000000000) * current.currentExchange.EUR | number: '1.1-2' }}€</h2>
                         </tr>
                         <tr>
                             <i>unausgezahlt</i>
