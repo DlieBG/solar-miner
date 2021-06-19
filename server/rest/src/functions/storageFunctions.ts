@@ -39,7 +39,7 @@ export class StorageFunctions {
         const {InfluxDB} = require('@influxdata/influxdb-client')
 
         // Ist nur zum Testen. Bin nicht so blöd und lade echte Token hoch XD
-        const token = 'l1m7lbzLz3qqxeWeYVg1loOUX8FosQlC18BcvICWr_ogR_bTVMP-YXFjbIr9ZVW97eohSiaMQNNC4myRHaPyAQ=='
+        const token = 'l9fOmco7xaStRkCNu-A2tBOoDCCdd0jB8tmKehyRWQhxIfPT3jl1TURlhvBtX-bGY9vpDFNvZ8Ks4uJwldYPkw=='
         const org = 'Schwering'
         const bucket = 'Solar'
 
