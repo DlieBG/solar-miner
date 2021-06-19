@@ -40,7 +40,7 @@ export class MiningFunctions {
                 this.status = true;
             else
             {
-                if(storage.energy.bat_fuel > 30) // Akku leerer als 30%
+                if(storage.energy.bat_fuel > 30) // Akku voller als 30%
                     this.status = true;
                 else
                 {

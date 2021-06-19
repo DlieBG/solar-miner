@@ -15,6 +15,7 @@
     "typescript": "^4.1.2"
   },
   "dependencies": {
+    "@influxdata/influxdb-client": "^1.14.0",
     "@types/axios": "^0.14.0",
     "@types/compression": "^1.7.0",
     "@types/cors": "^2.8.8",
