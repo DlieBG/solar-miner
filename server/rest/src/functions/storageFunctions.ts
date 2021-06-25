@@ -80,7 +80,8 @@ export class StorageFunctions {
                 bat_power: this.energy.bat_power,
                 solar_power: this.energy.solar_power,
                 house_power: this.energy.house_power,
-                grid_power: this.energy.grid_power
+                grid_power: this.energy.grid_power,
+                date: new Date
             }
         });
     }
