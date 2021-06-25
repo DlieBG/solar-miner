@@ -66,6 +66,23 @@ export class StorageFunctions {
                 console.error(e)
                 console.log('\\nFinished ERROR')
             })
+
+
+        const {Client} = require('@elastic/elasticsearch');
+        const esclient = new Client({
+            node: 'http://localhost:9200',
+        });
+
+        esclient.index({
+            index: 'solar-miner',
+            body: {
+                bat_fuel: this.energy.bat_fuel,
+                bat_power: this.energy.bat_power,
+                solar_power: this.energy.solar_power,
+                house_power: this.energy.house_power,
+                grid_power: this.energy.grid_power
+            }
+        });
     }
 
     async uploadStorage() {
