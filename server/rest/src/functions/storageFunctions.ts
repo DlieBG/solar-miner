@@ -70,7 +70,7 @@ export class StorageFunctions {
 
         const {Client} = require('@elastic/elasticsearch');
         const esclient = new Client({
-            node: 'http://localhost:9200',
+            node: 'http://10.16.2.3:9200',
         });
 
         esclient.index({
