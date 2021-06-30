@@ -36,54 +36,42 @@ export class StorageFunctions {
             };
         });
 
-        const {InfluxDB} = require('@influxdata/influxdb-client')
+        try 
+        {
+            const {InfluxDB} = require('@influxdata/influxdb-client')
 
-        // Ist nur zum Testen. Bin nicht so blöd und lade echte Token hoch XD
-        const token = 'l9fOmco7xaStRkCNu-A2tBOoDCCdd0jB8tmKehyRWQhxIfPT3jl1TURlhvBtX-bGY9vpDFNvZ8Ks4uJwldYPkw=='
-        const org = 'Schwering'
-        const bucket = 'Solar'
+            // Ist nur zum Testen. Bin nicht so blöd und lade echte Token hoch XD
+            const token = 'l9fOmco7xaStRkCNu-A2tBOoDCCdd0jB8tmKehyRWQhxIfPT3jl1TURlhvBtX-bGY9vpDFNvZ8Ks4uJwldYPkw=='
+            const org = 'Schwering'
+            const bucket = 'Solar'
+    
+            const client = new InfluxDB({url: 'http://10.16.2.3:8086', token: token})
+    
+            const {Point} = require('@influxdata/influxdb-client')
+            const writeApi = client.getWriteApi(org, bucket)
+            writeApi.useDefaultTags({storage: 'senec1'})
+    
+            const point = new Point('energy')
+            .floatField('bat_fuel', this.energy.bat_fuel)
+            .floatField('bat_power', this.energy.bat_power)
+            .floatField('solar_power', this.energy.solar_power)
+            .floatField('house_power', this.energy.house_power)
+            .floatField('grid_power', this.energy.grid_power)
+            writeApi.writePoint(point)
+    
+            writeApi
+                .close()
+                .then(() => {
+                    console.log('FINISHED')
+                })
+                .catch((e: any) => {
+                    console.error(e)
+                    console.log('\\nFinished ERROR')
+                })
+        }
+        catch(e) {
 
-        const client = new InfluxDB({url: 'http://10.16.2.3:8086', token: token})
-
-        const {Point} = require('@influxdata/influxdb-client')
-        const writeApi = client.getWriteApi(org, bucket)
-        writeApi.useDefaultTags({storage: 'senec1'})
-
-        const point = new Point('energy')
-        .floatField('bat_fuel', this.energy.bat_fuel)
-        .floatField('bat_power', this.energy.bat_power)
-        .floatField('solar_power', this.energy.solar_power)
-        .floatField('house_power', this.energy.house_power)
-        .floatField('grid_power', this.energy.grid_power)
-        writeApi.writePoint(point)
-
-        writeApi
-            .close()
-            .then(() => {
-                console.log('FINISHED')
-            })
-            .catch((e: any) => {
-                console.error(e)
-                console.log('\\nFinished ERROR')
-            })
-
-
-        const {Client} = require('@elastic/elasticsearch');
-        const esclient = new Client({
-            node: 'http://10.16.2.3:9200',
-        });
-
-        esclient.index({
-            index: 'solar-miner',
-            body: {
-                bat_fuel: this.energy.bat_fuel,
-                bat_power: this.energy.bat_power,
-                solar_power: this.energy.solar_power,
-                house_power: this.energy.house_power,
-                grid_power: this.energy.grid_power,
-                date: new Date
-            }
-        });
+        }
     }
 
     async uploadStorage() {
