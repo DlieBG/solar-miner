@@ -103,8 +103,8 @@ export class MiningFunctions {
             .floatField('currentExchange.USD', this.currentExchange.USD)
             .floatField('currentExchange.EUR', this.currentExchange.EUR)
             .booleanField('miningStatus', this.status)
-            .floatField('profit.perkWh', this.calculatekWh)
-            .floatField('profit.perDay', this.calculateDay)
+            .floatField('profit.perkWh', this.calculatekWh())
+            .floatField('profit.perDay', this.calculateDay())
             writeApi.writePoint(point)
     
             writeApi
