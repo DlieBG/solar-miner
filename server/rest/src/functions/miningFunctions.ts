@@ -73,6 +73,53 @@ export class MiningFunctions {
         .then(async (res) => {
             return res.data;
         });
+
+        try 
+        {
+            const {InfluxDB} = require('@influxdata/influxdb-client')
+
+            // Ist nur zum Testen. Bin nicht so blöd und lade echte Token hoch XD
+            const token = 'l9fOmco7xaStRkCNu-A2tBOoDCCdd0jB8tmKehyRWQhxIfPT3jl1TURlhvBtX-bGY9vpDFNvZ8Ks4uJwldYPkw=='
+            const org = 'Schwering'
+            const bucket = 'Solar'
+    
+            const client = new InfluxDB({url: 'http://10.16.2.3:8086', token: token})
+    
+            const {Point} = require('@influxdata/influxdb-client')
+            const writeApi = client.getWriteApi(org, bucket)
+            writeApi.useDefaultTags({storage: 'senec1'})
+    
+            const point = new Point('mining')
+            .intField('workers', this.workers.length)
+            .floatField('currentStats.currentHashrate', this.currentStats.currentHashrate)
+            .floatField('currentStats.averageHashrate', this.currentStats.averageHashrate)
+            .floatField('currentStats.validShares', this.currentStats.validShares)
+            .floatField('currentStats.invalidShares', this.currentStats.invalidShares)
+            .floatField('currentStats.staleShares', this.currentStats.staleShares)
+            .floatField('currentStats.activeWorkers', this.currentStats.activeWorkers)
+            .floatField('currentStats.unpaid', this.currentStats.unpaid)
+            .floatField('currentStats.coinsPerMin', this.currentStats.coinsPerMin)
+            .floatField('currentExchange.BTC', this.currentExchange.BTC)
+            .floatField('currentExchange.USD', this.currentExchange.USD)
+            .floatField('currentExchange.EUR', this.currentExchange.EUR)
+            .booleanField('miningStatus', this.status)
+            .floatField('profit.perkWh', this.calculatekWh)
+            .floatField('profit.perDay', this.calculateDay)
+            writeApi.writePoint(point)
+    
+            writeApi
+                .close()
+                .then(() => {
+                    console.log('FINISHED')
+                })
+                .catch((e: any) => {
+                    console.error(e)
+                    console.log('\\nFinished ERROR')
+                })
+        }
+        catch(e) {
+
+        }
     }
 
     async uploadMiner()
