@@ -90,7 +90,6 @@ export class MiningFunctions {
             writeApi.useDefaultTags({storage: 'senec1'})
     
             const point = new Point('mining')
-            .intField('workers', this.workers.length)
             .floatField('currentStats.currentHashrate', this.currentStats.currentHashrate)
             .floatField('currentStats.averageHashrate', this.currentStats.averageHashrate)
             .floatField('currentStats.validShares', this.currentStats.validShares)
