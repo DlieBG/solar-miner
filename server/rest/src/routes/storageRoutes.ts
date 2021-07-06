@@ -13,5 +13,6 @@ export class StorageRoutes {
 
     routes():void {
         this.router.get("/energy", this.storageController.getEnergy);
+        this.router.post("/alarm", this.storageController.postAlert);
     }
 }
